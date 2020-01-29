@@ -1,6 +1,7 @@
 # Add your Python code here. E.g.
 from microbit import *
 import neopixel
+import random
 
 class MicroBot:
     """
@@ -19,6 +20,7 @@ class MicroBot:
         analog_period = round((1/self.freq) * 1000)  # hertz to miliseconds
         MicroBot.LEFT_WHEEL.set_analog_period(analog_period)
         MicroBot.RIGHT_WHEEL.set_analog_period(analog_period)
+        self.np = neopixel.NeoPixel(pin0, 5)
 
     def _write_us(self, pin, us):
         us = min(self.max_us, max(self.min_us, us))
@@ -60,11 +62,22 @@ class MicroBot:
             Stops a wheel
         """
         wheel.write_digital(0)
+    
+    def set_light(self, light, red, green, blue):
+        self.np[light-1] = (red, green, blue)
+    
+    def show_light(self):
+        self.np.show()
+
 
 def main():
     bot = MicroBot()
     while True:
-        if button_a.is_pressed():
+        if button_a.is_pressed() and button_b.is_pressed():
+            for i in range(1,6):
+                bot.set_light(i, random.randint(0,255), random.randint(0,255), random.randint(0,255)) 
+            bot.show_light()
+        elif button_a.is_pressed():
             display.scroll("A")
             bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 1)
             bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 1)
@@ -72,7 +85,6 @@ def main():
             display.scroll("B")
             bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 0)
             bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 0)
-
 
 
 main()
