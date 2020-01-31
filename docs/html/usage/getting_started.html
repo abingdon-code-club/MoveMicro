@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started &#8212; MoveMicro  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/clipboard.min.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript">var copybuttonSkipText = '>>> ';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Welcome to MoveMicro’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>The microbot is developed by <a class="reference external" href="https://www.kitronik.co.uk/5652-move-mini-mk2-buggy-kit-excl-microbit.html">Kitronik</a>.
+They have resources for developing programs for the robot using <a class="reference external" href="https://makecode.microbit.org/#">Make Code</a>. You can follow their tutorials for this.</p>
+<div class="section" id="developing-in-python">
+<h2>Developing in Python<a class="headerlink" href="#developing-in-python" title="Permalink to this headline">¶</a></h2>
+<p>To develop for the microbot in Python, we first need to add some of our own code. First copy the below into the <a class="reference external" href="https://python.microbit.org/v/2.0">Python editor</a>.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Add your Python code here. E.g.</span>
+<span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">neopixel</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">MicroBot</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple class for controlling Kitronic :MOVE mini.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LEFT_WHEEL</span> <span class="o">=</span> <span class="n">pin2</span>
+    <span class="n">RIGHT_WHEEL</span> <span class="o">=</span> <span class="n">pin1</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_us</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_us</span> <span class="o">=</span> <span class="mi">2000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">us</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">=</span> <span class="mi">50</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analog_period</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">analog_period</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>  <span class="c1"># hertz to miliseconds</span>
+        <span class="n">MicroBot</span><span class="o">.</span><span class="n">LEFT_WHEEL</span><span class="o">.</span><span class="n">set_analog_period</span><span class="p">(</span><span class="n">analog_period</span><span class="p">)</span>
+        <span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="o">.</span><span class="n">set_analog_period</span><span class="p">(</span><span class="n">analog_period</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">np</span> <span class="o">=</span> <span class="n">neopixel</span><span class="o">.</span><span class="n">NeoPixel</span><span class="p">(</span><span class="n">pin0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_us</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">us</span><span class="p">):</span>
+        <span class="n">us</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_us</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_us</span><span class="p">,</span> <span class="n">us</span><span class="p">))</span>
+        <span class="n">duty</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">us</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">//</span> <span class="mi">1000000</span><span class="p">)</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">write_analog</span><span class="p">(</span><span class="n">duty</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">degrees</span> <span class="o">=</span> <span class="n">degrees</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="n">total_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_us</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_us</span>
+        <span class="n">us</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_us</span> <span class="o">+</span> <span class="n">total_range</span> <span class="o">*</span> <span class="n">degrees</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_us</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">us</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_speed_to_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+        <span class="n">multiplier</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="mf">90.0</span>
+        <span class="k">if</span> <span class="n">speed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">90</span> <span class="o">+</span> <span class="p">(</span><span class="mi">90</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">90</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">set_wheel_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wheel</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the speed of a wheel. Speed is between -1 and 1with 0 being stopped</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">speed</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">speed</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span>
+        <span class="k">if</span> <span class="n">wheel</span><span class="o">==</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">speed</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_angle</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span> <span class="mi">180</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed_to_angle</span><span class="p">(</span><span class="n">speed</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop_wheel</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">speed</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_angle</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed_to_angle</span><span class="p">(</span><span class="n">speed</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop_wheel</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">stop_wheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wheel</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Stops a wheel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wheel</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">set_light</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">light</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">np</span><span class="p">[</span><span class="n">light</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">show_light</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">np</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>We don’t have to know much about this block of code for now. It just lets us command the robot.</p>
+</div>
+<div class="section" id="movement">
+<h2>Movement<a class="headerlink" href="#movement" title="Permalink to this headline">¶</a></h2>
+<p>Now we’ve got some building blocks, we can start by making the little guy move around. Tip the robot on it’s side so it’s right wheel, is in the air.</p>
+<div class="figure align-default" id="id1">
+<img alt="microbot sat on its left side with the right wheel in the air" src="images/getting_started/right_wheel_in_air.jpg" />
+<p class="caption"><span class="caption-text">Left wheel on the table, right in the air</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Now replace the main function we just copied in with the following code.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+     <span class="n">bot</span> <span class="o">=</span> <span class="n">MicroBot</span><span class="p">()</span>
+     <span class="n">bot</span><span class="o">.</span><span class="n">set_wheel_speed</span><span class="p">(</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>The left wheel should be spinning clockwise, if it isn’t, somethings gone horribly wrong, check your code and then find help.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">MoveMicro</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#developing-in-python">Developing in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#movement">Movement</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to MoveMicro’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Matthew Daubney.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/usage/getting_started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

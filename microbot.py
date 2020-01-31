@@ -71,20 +71,7 @@ class MicroBot:
 
 
 def main():
-    bot = MicroBot()
-    while True:
-        if button_a.is_pressed() and button_b.is_pressed():
-            for i in range(1,6):
-                bot.set_light(i, random.randint(0,255), random.randint(0,255), random.randint(0,255)) 
-            bot.show_light()
-        elif button_a.is_pressed():
-            display.scroll("A")
-            bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 1)
-            bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 1)
-        elif button_b.is_pressed():
-            display.scroll("B")
-            bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 0)
-            bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 0)
+    pass
 
 
 main()
