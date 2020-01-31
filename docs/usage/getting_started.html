@@ -37,8 +37,12 @@
             
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>The microbot is developed by <a class="reference external" href="https://www.kitronik.co.uk/5652-move-mini-mk2-buggy-kit-excl-microbit.html">Kitronik</a>.
-They have resources for developing programs for the robot using <a class="reference external" href="https://makecode.microbit.org/#">Make Code</a>. You can follow their tutorials for this.</p>
+<p>The microbot is developed by <a class="reference external" href="https://www.kitronik.co.uk/5652-move-mini-mk2-buggy-kit-excl-microbit.html">Kitronik</a>.</p>
+<div class="figure align-default" id="id1">
+<img alt="microbot front on with the power switch highlighted" src="../_images/front_view.jpg" />
+<p class="caption"><span class="caption-text">The microbot with the power switch highlighted</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>They have resources for developing programs for the robot using <a class="reference external" href="https://makecode.microbit.org/#">Make Code</a>. You can follow their tutorials for this.</p>
 <div class="section" id="developing-in-python">
 <h2>Developing in Python<a class="headerlink" href="#developing-in-python" title="Permalink to this headline">¶</a></h2>
 <p>To develop for the microbot in Python, we first need to add some of our own code. First copy the below into the <a class="reference external" href="https://python.microbit.org/v/2.0">Python editor</a>.</p>
@@ -202,9 +206,9 @@ They have resources for developing programs for the robot using <a class="refere
 <div class="section" id="movement">
 <h2>Movement<a class="headerlink" href="#movement" title="Permalink to this headline">¶</a></h2>
 <p>Now we’ve got some building blocks, we can start by making the little guy move around. Tip the robot on it’s side so it’s right wheel, is in the air.</p>
-<div class="figure align-default" id="id1">
+<div class="figure align-default" id="id2">
 <img alt="microbot sat on its left side with the right wheel in the air" src="../_images/right_wheel_in_air.jpg" />
-<p class="caption"><span class="caption-text">Left wheel on the table, right in the air</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Left wheel on the table, right in the air</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>Now replace the main function we just copied in with the following code.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>73
@@ -214,7 +218,47 @@ They have resources for developing programs for the robot using <a class="refere
      <span class="n">bot</span><span class="o">.</span><span class="n">set_wheel_speed</span><span class="p">(</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>The left wheel should be spinning clockwise, if it isn’t, somethings gone horribly wrong, check your code and then find help.</p>
+<p>Turn on the power switch and the right wheel should be spinning clockwise, if it isn’t, somethings gone horribly wrong, check your code and then find help.</p>
+<p>Once you have that working, try the following.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+     <span class="n">bot</span> <span class="o">=</span> <span class="n">MicroBot</span><span class="p">()</span>
+     <span class="n">bot</span><span class="o">.</span><span class="n">set_wheel_speed</span><span class="p">(</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Turn on the power switch and the left wheel should be spinning anticlockwise, if it isn’t, somethings gone horribly wrong, check your code and then find help.</p>
+<div class="admonition attention">
+<p class="admonition-title">Have a go</p>
+<p>Now see if you can make the wheel spin clockwise unless the A button on the microbit is pressed. When this is pressed, the wheel should spin anti-clockwise.</p>
+</div>
+<p>Turn the power back off, and flip the robot onto it’s left wheel. Now try the following.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+     <span class="n">bot</span> <span class="o">=</span> <span class="n">MicroBot</span><span class="p">()</span>
+     <span class="n">bot</span><span class="o">.</span><span class="n">set_wheel_speed</span><span class="p">(</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">LEFT_WHEEL</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Turn on the power switch and the left wheel should be spinning clockwise, if it isn’t, somethings gone horribly wrong, check your code and then find help.</p>
+<p>You can also alter the speed the wheel moves at like the following.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>73
+74
+75</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+     <span class="n">bot</span> <span class="o">=</span> <span class="n">MicroBot</span><span class="p">()</span>
+     <span class="n">bot</span><span class="o">.</span><span class="n">set_wheel_speed</span><span class="p">(</span><span class="n">MicroBot</span><span class="o">.</span><span class="n">LEFT_WHEEL</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>When the power is switched on it should turn more slowly.</p>
+<div class="admonition attention">
+<p class="admonition-title">Have a go</p>
+<p>See if you can make the robot:</p>
+<ul class="simple">
+<li><p>Spin on the spot</p></li>
+<li><p>Move forward slowly</p></li>
+<li><p>Move backwards slowly</p></li>
+</ul>
+</div>
 </div>
 </div>
 

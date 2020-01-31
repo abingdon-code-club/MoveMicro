@@ -17,6 +17,7 @@ help:
 github:
 	@make html
 	@mkdir -p docs/
+	@touch docs/.nojekyll
 	@cp -a build/html/* docs/
 
 # Catch-all target: route all unknown targets to Sphinx using the new
