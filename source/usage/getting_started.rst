@@ -21,7 +21,7 @@ Movement
 
 Now we've got some building blocks, we can start by making the little guy move around. Tip the robot on it's side so it's right wheel, is in the air.
 
-.. figure:: /images/getting_started/right_wheel_in_air.jpg
+.. figure:: images/right_wheel_in_air.jpg
    :alt: microbot sat on its left side with the right wheel in the air
 
    Left wheel on the table, right in the air
