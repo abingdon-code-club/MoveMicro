@@ -34,25 +34,24 @@ class MicroBot:
         self._write_us(pin, us)
     
     def _speed_to_angle(self, speed):
-        multiplier = 1.0/90.0
         if speed > 0:
             return 90 + (90*speed)
         else:
-            return (90*speed)
+            return 90*speed
     
     def set_wheel_speed(self, wheel, speed):
         """
-            Set the speed of a wheel. Speed is between -1 and 1with 0 being stopped
+            Set the speed of a wheel. Speed is between -0.5 and 0.5 with 0 being stopped
         """
-        if speed != 0:
-            speed = (speed/2)+0.5
-        if wheel==MicroBot.RIGHT_WHEEL:
-            if speed!=0:
-                self._write_angle(wheel, 180 - self._speed_to_angle(speed))
+
+        if wheel == MicroBot.RIGHT_WHEEL:
+            if speed != 0:
+                # We reverse this one to make both positive forward and both positive backwards
+                self._write_angle(wheel, self._speed_to_angle(-1 * speed))
             else:
                 self.stop_wheel(wheel)
         else:
-            if speed!=0:
+            if speed != 0:
                 self._write_angle(wheel, self._speed_to_angle(speed))
             else:
                 self.stop_wheel(wheel)
