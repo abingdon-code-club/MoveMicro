@@ -41,7 +41,7 @@ Now replace the main function we just copied in with the following code.
 
     def main():
         bot = MicroBot()
-        bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 1)
+        bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, 0.5)
 
 Turn on the power switch and the right wheel should be spinning clockwise, if it isn't, somethings gone horribly wrong, check your code and then find help.
 
@@ -53,7 +53,7 @@ Once you have that working, try the following.
 
     def main():
         bot = MicroBot()
-        bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, -1)
+        bot.set_wheel_speed(MicroBot.RIGHT_WHEEL, -0.5)
 
 Turn on the power switch and the left wheel should be spinning anticlockwise, if it isn't, somethings gone horribly wrong, check your code and then find help.
 
@@ -71,7 +71,7 @@ Turn the power back off, and flip the robot onto it's left wheel. Now try the fo
 
     def main():
         bot = MicroBot()
-        bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 1)
+        bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 0.5)
 
 Turn on the power switch and the left wheel should be spinning clockwise, if it isn't, somethings gone horribly wrong, check your code and then find help.
 
@@ -83,7 +83,7 @@ You can also alter the speed the wheel moves at like the following.
 
     def main():
         bot = MicroBot()
-        bot.set_wheel_speed(MicroBot.LEFT_WHEEL, 0.5)
+        bot.set_wheel_speed(MicroBot.LEFT_WHEEL, -0.5)
 
 When the power is switched on it should turn more slowly.
 
