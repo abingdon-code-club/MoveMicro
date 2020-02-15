@@ -121,7 +121,8 @@
 73
 74
 75
-76</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Add your Python code here. E.g.</span>
+76
+77</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Add your Python code here. E.g.</span>
 <span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">neopixel</span>
 <span class="kn">import</span> <span class="nn">random</span>
@@ -157,27 +158,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_write_us</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">us</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">_speed_to_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Continuous rotation servos go from:</span>
+<span class="sd">        * 0 = Full speed one way</span>
+<span class="sd">        * 90 = Stop</span>
+<span class="sd">        * 180 = Full speed the other way</span>
+<span class="sd">        So we have to handle this</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">speed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">90</span> <span class="o">+</span> <span class="p">(</span><span class="mi">90</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">90</span> <span class="o">+</span> <span class="p">(</span><span class="mi">90</span> <span class="o">*</span> <span class="n">speed</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">90</span><span class="o">*</span><span class="n">speed</span>
+            <span class="k">return</span> <span class="mi">90</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span> <span class="o">*</span> <span class="n">speed</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">set_wheel_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wheel</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Set the speed of a wheel. Speed is between -0.5 and 0.5 with 0 being stopped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">if</span> <span class="n">wheel</span> <span class="o">==</span> <span class="n">MicroBot</span><span class="o">.</span><span class="n">RIGHT_WHEEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">speed</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># We reverse this one to make both positive forward and both positive backwards</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_write_angle</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed_to_angle</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">speed</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">stop_wheel</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span> <span class="o">*</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="k">if</span> <span class="n">speed</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_angle</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed_to_angle</span><span class="p">(</span><span class="n">speed</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">speed</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_write_angle</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed_to_angle</span><span class="p">(</span><span class="n">speed</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">stop_wheel</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_wheel</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">stop_wheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wheel</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
